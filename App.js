@@ -4,21 +4,20 @@
  *
  * @format
  */
-
+import 'react-native-gesture-handler';
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text} from 'react-native';
 import {DataProvider} from './src/context/context';
 import Homepage from './src/Homepage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from './src/home/home';
-const Stack = createNativeStackNavigator();
+// const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
       <SafeAreaView style={styles.container}>
         <DataProvider>
-          <Stack.Navigator initialRouteName="Home">
+          {/* <Stack.Navigator initialRouteName="Home">
             <Stack.Screen
               name="Home"
               component={HomeScreen}
@@ -29,7 +28,8 @@ function App() {
               component={Homepage}
               // options={{title: 'Welcome'}}
             />
-          </Stack.Navigator>
+          </Stack.Navigator> */}
+          <Homepage />
         </DataProvider>
       </SafeAreaView>
     </NavigationContainer>
