@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, StyleSheet, Text} from 'react-native';
 import {DataProvider} from './src/context/context';
 import Homepage from './src/Homepage';
 import {NavigationContainer} from '@react-navigation/native';
