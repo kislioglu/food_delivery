@@ -9,9 +9,20 @@ import {
 } from 'react-native';
 import React from 'react';
 import {useDataContext} from '../../context/context';
+import {useState} from 'react';
 
 export default function GetSearchedRecipe() {
-  const {mealData} = useDataContext();
+  const {mealData, mealName} = useDataContext();
+  const [isSearched, setIsSearched] = useState(false);
+
+  const scrollHandle = () => {
+    if (mealName) {
+      setIsSearched(true);
+    } else {
+      setIsSearched(false);
+    }
+  };
+
   return (
     <View style={styles.scrollView}>
       <ScrollView
@@ -21,19 +32,24 @@ export default function GetSearchedRecipe() {
           <View key={index} style={styles.buttonContainer}>
             <TouchableOpacity activeOpacity={0.8} style={styles.button}>
               <View style={styles.buttonContent}>
-                <Text style={styles.buttonText}>{md?.strMeal}</Text>
                 {/* <Text style={styles.buttonText}>{md?.srtArea}</Text> */}
                 <Image
                   style={styles.recipeImg}
                   source={{uri: md.strMealThumb}}
                 />
+                <Text
+                  ellipsizeMode="tail"
+                  numberOfLines={1}
+                  style={styles.buttonText}>
+                  {md?.strMeal}
+                </Text>
               </View>
             </TouchableOpacity>
 
-            {(index + 1) % 2 === 0 ||
+            {/* {(index + 1) % 2 === 0 ||
             index === mealData.meals.length - 1 ? null : (
               <View style={styles.separator}></View>
-            )}
+            )} */}
           </View>
         ))}
       </ScrollView>
@@ -56,31 +72,34 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   buttonContainer: {
-    width: '48%',
+    width: '46%',
+    height: 150,
     marginBottom: 10,
   },
   button: {
-    backgroundColor: 'lightblue',
+    width: '100%',
+    height: 200,
     padding: 10,
     borderRadius: 5,
   },
   buttonContent: {
     alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
     fontSize: 16,
     fontWeight: 'bold',
+    maxWidth: 150,
+    height: 20,
+    marginTop: 10,
   },
   recipeImg: {
-    width: 100,
+    width: 150,
     height: 100,
-    marginTop: 5,
     borderRadius: 5,
   },
-  separator: {
-    width: '100%',
-    height: 1,
-    backgroundColor: 'gray',
-    marginTop: 5,
-  },
+  // separator: {
+  //   width: '100%',
+  //   height: 1,
+  // },
 });
