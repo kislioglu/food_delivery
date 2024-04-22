@@ -16,7 +16,9 @@ export default function DailySentences() {
 
   return (
     <View style={styles.randomSentences}>
-      {randomSentence !== '' && <Text style={styles.sentenceText}>{randomSentence}</Text>}
+      {randomSentence !== '' && (
+        <Text style={styles.sentenceText}>{randomSentence}</Text>
+      )}
     </View>
   );
 }
@@ -24,15 +26,15 @@ export default function DailySentences() {
 const styles = StyleSheet.create({
   randomSentences: {
     marginTop: 10,
+    marginLeft: 10,
     paddingHorizontal: 10,
-    width: '100%',
+    width: '90%',
     height: 100,
-    borderWidth: 1,
-    backgroundColor: 'grey',
     justifyContent: 'center',
   },
   sentenceText: {
     fontWeight: '700',
-    fontSize: 16,
+    fontSize: 20,
+    color: '#303030',
   },
 });

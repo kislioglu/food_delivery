@@ -8,17 +8,19 @@ export default function SearchRecipe() {
 
   return (
     <View style={styles.searchArea}>
+      <View style={styles.searchIconArea}>
+        <Image
+          style={styles.searchIcon}
+          source={require('../../../assets/icons/search.png')}
+        />
+      </View>
       <View style={styles.textInput}>
         <TextInput
           style={styles.input}
           placeholder="Search for recipe..."
-          placeholderTextColor={'#000'}
+          placeholderTextColor={'#969696'}
           value={mealName}
           onChangeText={text => setMealName(text)}
-        />
-        <Image
-          style={styles.searchIcon}
-          source={require('../../../assets/icons/search.png')}
         />
       </View>
     </View>
@@ -27,32 +29,36 @@ export default function SearchRecipe() {
 
 const styles = StyleSheet.create({
   searchArea: {
-    width: '100%',
+    width: '90%',
     marginTop: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 60,
+    flexDirection: 'row',
+    marginLeft: 20,
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: '#969696',
   },
   textInput: {
-    width: '95%',
+    width: '90%',
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 10,
   },
   input: {
-    width: '90%',
-    // backgroundColor: 'red',
+    width: '100%',
     height: 40,
     borderColor: '#000',
-    borderRadius: 5,
     paddingHorizontal: 10,
     fontWeight: '600',
     fontSize: 14,
   },
+  searchIconArea: {
+    width: '10%',
+    left: 10,
+  },
   searchIcon: {
-    left: 5,
     width: 24,
     height: 24,
+    tintColor: '#969696',
   },
 });
