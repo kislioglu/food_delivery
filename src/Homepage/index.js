@@ -1,31 +1,31 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, ScrollView} from 'react-native';
 import Categories from './categories/categories';
-import Avatars from './avatar/avatar';
-import Notifications from './notifications/notifications';
-import SearchRecipe from './searchRecipe/searchRecipe';
 import DailySentences from './dailySentences/dailySentences';
 import Search from './searchRecipe';
+import Meal from './meals/meal';
+import Recent from './recent/recent';
 
 function Homepage() {
   return (
-    <View>
-      <View style={styles.header}>
-        <Avatars />
-        {/* <Notifications /> */}
-      </View>
-      <DailySentences />
-      <Search />
-      {/* <Categories /> */}
+    <View style={styles.content}>
+      <ScrollView>
+        <DailySentences />
+        <Search />
+        <Categories />
+        <Meal />
+        <Recent />
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
+  content: {
     width: '100%',
-    height: 60,
+    height: '100%',
+    backgroundColor: 'white',
   },
 });
 
