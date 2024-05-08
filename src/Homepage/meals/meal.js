@@ -7,70 +7,115 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {useDataContext} from '../../context/context';
 import Loading from '../../loading/loading';
-import MealDetails from './mealDetails';
+import {useNavigation} from '@react-navigation/native';
+import {storeData} from '../../AsyncStorage/AsyncStorage';
+import {useEffect} from 'react';
 
 export default function Meal() {
-  const {singleCategory, showMeals, setSelectedMeal} = useDataContext();
-  const [showMealDetail, setShowMealDetail] = useState(false);
+  const {
+    singleCategory,
+    showMeals,
+    setSelectedMealId,
+    addedToBookmark,
+    setAddedToBookmark,
+    selectedCategoryName,
+  } = useDataContext();
+  const navigation = useNavigation();
 
   const handleMealOnPress = selectedMeal => {
-    setSelectedMeal(selectedMeal);
-    setShowMealDetail(true);
+    setSelectedMealId({
+      mealId: selectedMeal.idMeal,
+      mealName: selectedMeal.strMeal,
+    });
+    storeData('mealKey', selectedMeal.idMeal);
+    navigation.navigate('MealDetails');
   };
+
+  const handleBookmark = singleCat => {
+    const addToBookmark = addedToBookmark.find(
+      ab => ab.idMeal === singleCat.idMeal,
+    );
+    if (singleCat?.idMeal === addToBookmark?.idMeal) {
+      setAddedToBookmark(prev =>
+        prev.filter(item => item.idMeal !== singleCat.idMeal),
+      );
+    } else {
+      setAddedToBookmark(prev => [...prev, singleCat]);
+    }
+    setSelectedMealId({
+      mealId: singleCat.idMeal,
+      mealName: singleCat.strMeal,
+    });
+  };
+
   return (
     <View style={styles.scrollView}>
       <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContentContainer}>
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.scroll}>
         {showMeals ? (
           singleCategory?.meals.length > 0 ? (
-            singleCategory.meals.map((singleCat, index) => (
-              <View
-                key={index}
-                style={[styles.buttonContainer, index < 2 && {marginTop: 30}]}>
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  onPress={() => handleMealOnPress(singleCat)}
-                  style={styles.button}>
-                  <View style={styles.buttonContent}>
-                    <View style={styles.mealButton}>
-                      <Image
-                        style={styles.recipeImg}
-                        source={{uri: singleCat.strMealThumb}}
-                      />
-                      <Text
-                        ellipsizeMode="tail"
-                        numberOfLines={1}
-                        style={styles.buttonText}>
-                        {singleCat.strMeal}
-                      </Text>
-                    </View>
-                    <View style={styles.timesAndSave}>
-                      <View>
-                        <Text style={styles.timeLabel}>Time</Text>
-                        <Text style={styles.requiredTime}>10 Mins</Text>
+            singleCategory.meals.map((singleCat, index) => {
+              const isAdded = addedToBookmark.some(
+                ab => ab.idMeal === singleCat.idMeal,
+              );
+              return (
+                <View
+                  key={index}
+                  style={[
+                    styles.buttonContainer,
+                    index < 1 && {marginLeft: 20},
+                  ]}>
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    onPress={() => handleMealOnPress(singleCat)}
+                    style={styles.button}>
+                    <View style={styles.buttonContent}>
+                      <View style={styles.mealButton}>
+                        <Image
+                          style={styles.recipeImg}
+                          source={{uri: singleCat.strMealThumb}}
+                        />
+                        <Text
+                          ellipsizeMode="tail"
+                          numberOfLines={1}
+                          style={styles.buttonText}>
+                          {singleCat.strMeal}
+                        </Text>
                       </View>
-                      <View style={styles.bookmarkgImg}>
-                        <TouchableOpacity>
-                          <Image
-                            source={require('../../../assets/icons/bookmark.png')}
-                          />
-                        </TouchableOpacity>
+                      <View style={styles.timesAndSave}>
+                        <View>
+                          <Text style={styles.timeLabel}>Time</Text>
+                          <Text style={styles.requiredTime}>10 Mins</Text>
+                        </View>
+                        <View style={styles.bookmarkgImg}>
+                          <TouchableOpacity
+                            onPress={() => handleBookmark(singleCat)}>
+                            <Image
+                              style={{width: 20, height: 20}}
+                              source={
+                                isAdded
+                                  ? require('../../../assets/icons/remove-bookmark.png')
+                                  : require('../../../assets/icons/bookmark.png')
+                              }
+                            />
+                          </TouchableOpacity>
+                        </View>
                       </View>
                     </View>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            ))
+                  </TouchableOpacity>
+                </View>
+              );
+            })
           ) : (
             <Loading />
           )
         ) : null}
       </ScrollView>
-      {showMealDetail ? <MealDetails /> : null}
     </View>
   );
 }
@@ -78,22 +123,18 @@ export default function Meal() {
 const styles = StyleSheet.create({
   scrollView: {
     width: '100%',
-    flexGrow: 1,
+    height: 220,
   },
   scroll: {
     width: '100%',
-    height: '60%',
-  },
-  scrollContentContainer: {
+    height: 220,
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    padding: 10,
   },
   buttonContainer: {
-    width: '46%',
+    width: 160,
     height: 150,
-    marginBottom: 100,
+    flexDirection: 'row',
+    top: 50,
   },
   recipeImg: {
     width: 100,
@@ -113,7 +154,6 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     height: 200,
-    padding: 10,
     borderRadius: 5,
   },
   buttonContent: {
