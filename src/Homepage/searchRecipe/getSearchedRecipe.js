@@ -10,17 +10,25 @@ import {
 import React from 'react';
 import {useDataContext} from '../../context/context';
 import {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 export default function GetSearchedRecipe() {
-  const {mealData, mealName} = useDataContext();
+  const {mealData, mealName, setSelectedMealId} = useDataContext();
   const [isSearched, setIsSearched] = useState(false);
-
+  const navigation = useNavigation();
   const scrollHandle = () => {
     if (mealName) {
       setIsSearched(true);
     } else {
       setIsSearched(false);
     }
+  };
+  const handleMealOnPress = selectedMeal => {
+    setSelectedMealId({
+      mealId: selectedMeal.idMeal,
+      mealName: selectedMeal.strMeal,
+    });
+    navigation.navigate('MealDetails');
   };
 
   return (
@@ -30,7 +38,10 @@ export default function GetSearchedRecipe() {
         contentContainerStyle={styles.scrollContentContainer}>
         {mealData?.meals?.map((md, index) => (
           <View key={index} style={styles.buttonContainer}>
-            <TouchableOpacity activeOpacity={0.8} style={styles.button}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => handleMealOnPress(md)}
+              style={styles.button}>
               <View style={styles.buttonContent}>
                 {/* <Text style={styles.buttonText}>{md?.srtArea}</Text> */}
                 <Image
