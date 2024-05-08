@@ -4,43 +4,28 @@
  *
  * @format
  */
-import 'react-native-gesture-handler';
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {DataProvider} from './src/context/context';
-import Homepage from './src/Homepage';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-// const Stack = createNativeStackNavigator();
+import NavRouter from './src/navigator/navRouter';
+import {enableFreeze, enableScreens} from 'react-native-screens';
+enableFreeze(true);
+enableScreens(false);
+
 function App() {
   return (
-    <NavigationContainer>
-      <SafeAreaView style={styles.container}>
-        <DataProvider>
-          {/* <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen
-              name="Home"
-              component={HomeScreen}
-              // options={{title: 'Welcome'}}
-            />
-            <Stack.Screen
-              name="Profile"
-              component={Homepage}
-              // options={{title: 'Welcome'}}
-            />
-          </Stack.Navigator> */}
-          <Homepage />
-        </DataProvider>
-      </SafeAreaView>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <DataProvider>
+        <NavRouter />
+      </DataProvider>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(255,255,255,0.3)',
+    flex: 1,
   },
 });
 
