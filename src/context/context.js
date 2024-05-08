@@ -4,17 +4,20 @@ import React, {createContext, useContext, useEffect, useState} from 'react';
 export const DataContext = createContext();
 
 export const DataProvider = ({children}) => {
+  const [addedToBookmark, setAddedToBookmark] = useState([]);
+  const [savedMealDetails, setSavedMealDetails] = useState([]);
   const [categories, setCategories] = useState([]);
   const [showMeals, setShowMeals] = useState(false);
   const [singleCategory, setSingleCategory] = useState();
-  const [selectedCategory, setSelectedCategory] = useState();
-  const [selectedMeal, setSelectedMeal] = useState();
+  const [selectedCategoryName, setselectedCategoryName] = useState();
+  const [selectedMealId, setSelectedMealId] = useState();
   const [mealDetail, setMealDetail] = useState();
   const [mealData, setMealData] = useState(null);
   const [mealName, setMealName] = useState();
   const categoriesUrl = 'https://themealdb.com/api/json/v1/1/categories.php';
   const mealNameUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  const fullMealDetail = 'www.themealdb.com/api/json/v1/1/lookup.php?i=';
+  const fullMealDetail =
+    'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 
   useEffect(() => {
     if (mealName === '') {
@@ -25,17 +28,18 @@ export const DataProvider = ({children}) => {
   }, [mealName]);
 
   useEffect(() => {
-    fetchFullMealDetail();
-  }, [selectedMeal]);
-
+    if (selectedMealId?.mealId) {
+      fetchFullMealDetail();
+    }
+  }, [selectedMealId?.mealId]);
   useEffect(() => {
     fetchCategories();
   }, []);
   useEffect(() => {
-    if (selectedCategory) {
+    if (selectedCategoryName) {
       fetchSingleCategory();
     }
-  }, [selectedCategory]);
+  }, [selectedCategoryName]);
   const fetchCategories = async () => {
     try {
       const response = await fetch(categoriesUrl);
@@ -59,7 +63,7 @@ export const DataProvider = ({children}) => {
   const fetchSingleCategory = async () => {
     try {
       const response = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`,
+        `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategoryName}`,
       );
       const data = await response.json();
       setSingleCategory(data);
@@ -69,28 +73,31 @@ export const DataProvider = ({children}) => {
   };
   const fetchFullMealDetail = async () => {
     try {
-      const response = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772`,
-      );
+      const response = await fetch(`${fullMealDetail + selectedMealId.mealId}`);
       const data = await response.json();
       setMealDetail(data);
     } catch (error) {
       console.error('Err:', error);
     }
   };
+  // console.log(mealDetail)
   const contextValues = {
     categories,
     setMealName,
     mealName,
     mealData,
-    setSelectedCategory,
-    selectedCategory,
+    setselectedCategoryName,
+    selectedCategoryName,
     singleCategory,
     showMeals,
     setShowMeals,
-    selectedMeal,
-    setSelectedMeal,
+    selectedMealId,
+    setSelectedMealId,
     mealDetail,
+    addedToBookmark,
+    setAddedToBookmark,
+    savedMealDetails,
+    setSavedMealDetails,
   };
 
   return (
@@ -99,7 +106,6 @@ export const DataProvider = ({children}) => {
     </DataContext.Provider>
   );
 };
-
 export const useDataContext = () => {
   const context = useContext(DataContext);
   if (!context) {
