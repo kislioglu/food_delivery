@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
+
 import {
   View,
   Text,
@@ -12,7 +14,6 @@ import {useDataContext} from '../../context/context';
 import Loading from '../../loading/loading';
 import {useNavigation} from '@react-navigation/native';
 import {storeData} from '../../AsyncStorage/AsyncStorage';
-import {useEffect} from 'react';
 
 export default function Meal() {
   const {
@@ -21,7 +22,6 @@ export default function Meal() {
     setSelectedMealId,
     addedToBookmark,
     setAddedToBookmark,
-    selectedCategoryName,
   } = useDataContext();
   const navigation = useNavigation();
 
@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
     height: 150,
     flexDirection: 'row',
     top: 50,
+    marginRight: 5,
   },
   recipeImg: {
     width: 100,

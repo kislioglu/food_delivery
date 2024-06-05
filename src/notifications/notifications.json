@@ -1,0 +1,81 @@
+{
+  "notifications ": [
+    {
+      "id": 1,
+      "caption": "Do not forget to cook.",
+      "notificationContent": "Far far away, behind the word mountains, far from the countries.",
+      "isReaded": true,
+      "date": "2024-05-08T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "caption": "New Recipe.",
+      "notificationContent": "Far far away, behind the word mountains, far from the countries.",
+      "isReaded": false,
+      "date": "2024-05-07T15:30:00Z"
+    },
+    {
+      "id": 3,
+      "caption": "New Recipe",
+      "notificationContent": "Far far away, behind the word mountains, far from the countries.",
+      "isReaded": true,
+      "date": "2024-05-05T00:00:00Z"
+    },
+    {
+      "id": 4,
+      "caption": "New Recipe",
+      "notificationContent": "Far far away, behind the word mountains, far from the countries.",
+      "isReaded": true,
+      "date": "2024-05-06T08:45:00Z"
+    },
+    {
+      "id": 5,
+      "caption": "Do not forget to cook.",
+      "notificationContent": "Far far away, behind the word mountains, far from the countries.",
+      "isReaded": false,
+      "date": "2024-05-2T11:00:00Z"
+    },
+    {
+      "id": 6,
+      "caption": "Do not forget to cook.",
+      "notificationContent": "Far far away, behind the word mountains, far from the countries.",
+      "isReaded": false,
+      "date": "2024-05-07T20:00:00Z"
+    },
+    {
+      "id": 7,
+      "caption": "New Recipe.",
+      "notificationContent": "Far far away, behind the word mountains, far from the countries.",
+      "isReaded": false,
+      "date": "2024-01-01T09:00:00Z"
+    },
+    {
+      "id": 8,
+      "caption": "New Recipe.",
+      "notificationContent": "Far far away, behind the word mountains, far from the countries.",
+      "isReaded": true,
+      "date": "2024-05-04T17:30:00Z"
+    },
+    {
+      "id": 9,
+      "caption": "Do not forget to cook.",
+      "notificationContent": "Far far away, behind the word mountains, far from the countries.",
+      "isReaded": true,
+      "date": "2024-05-5T14:00:00Z"
+    },
+    {
+      "id": 10,
+      "caption": "Do not forget to cook.",
+      "notificationContent": "Far far away, behind the word mountains, far from the countries.",
+      "isReaded": false,
+      "date": "2024-05-03T08:00:00Z"
+    },
+    {
+      "id": 11,
+      "caption": "Do not forget to cook.",
+      "notificationContent": "Far far away, behind the word mountains, far from the countries.",
+      "isReaded": false,
+      "date": "2024-05-029T13:08:00Z"
+    }
+  ]
+}

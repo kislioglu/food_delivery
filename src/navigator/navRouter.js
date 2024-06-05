@@ -6,23 +6,18 @@ import React, {useEffect, useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Homepage from '../Homepage';
 import {Image, View, Text, StyleSheet} from 'react-native';
-import UnreadNotifications from '../Homepage/notifications/UnreadNotifications';
-import Profile from '../Homepage/profile/profile';
-import Saved from '../Homepage/saved/saved';
+import UnreadNotifications from '../notifications/UnreadNotifications';
+import Profile from '../profile/profile';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MealDetails from '../Homepage/meals/mealDetails';
 import {useDataContext} from '../context/context';
-import SavedMealDetails from '../Homepage/meals/savedMealDetails';
-import Recipe from '../Homepage/saved/recipe';
-import RecipeVideo from '../Homepage/saved/savedRecipeVideo';
-import AllNotifications from '../Homepage/notifications/AllNotifications';
-import ReadNotifications from '../Homepage/notifications/ReadNotifications';
-// import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-
+import Recipe from '../saved/recipe';
+import RecipeVideo from '../saved/savedRecipeVideo';
+import AllNotifications from '../notifications/AllNotifications';
+import ReadNotifications from '../notifications/ReadNotifications';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-// const TopTab = createMaterialTopTabNavigator();
 
 function MainStack() {
   const {mealDetail} = useDataContext();
@@ -46,42 +41,26 @@ function MainStack() {
     </Stack.Navigator>
   );
 }
-function SavedStack() {
-  const {mealDetail} = useDataContext();
-  const [headerMealName, setHeaderMealName] = useState();
-  useEffect(() => {
-    setHeaderMealName(mealDetail?.meals[0].strMeal);
-  }, [mealDetail?.meals]);
-
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Saved"
-        component={Saved}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="SavedMealDetails"
-        component={SavedMealDetails}
-        options={{headerTitle: headerMealName}}
-      />
-    </Stack.Navigator>
-  );
-}
 
 function SavedTabs() {
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
+    <Tab.Navigator
+      screenOptions={{headerShown: false, tabBarStyle: styles.tabBarStyle}}>
       <Tab.Screen
         name="RecipeVideo"
         component={RecipeVideo}
         options={{
           title: '',
           tabBarIcon: ({focused}) => (
-            <View style={styles.tabScreen}>
+            <View
+              style={
+                focused
+                  ? styles.tabScreenWithoutImgFocused
+                  : styles.tabScreenWithoutImg
+              }>
               <Text
                 style={{
-                  color: focused ? '#e32f45' : '#748c94',
+                  color: focused ? '#fff' : '#748c94',
                   fontSize: 14,
                   fontWeight: 'bold',
                 }}>
@@ -97,10 +76,15 @@ function SavedTabs() {
         options={{
           title: '',
           tabBarIcon: ({focused}) => (
-            <View style={styles.tabScreen}>
+            <View
+              style={
+                focused
+                  ? styles.tabScreenWithoutImgFocused
+                  : styles.tabScreenWithoutImg
+              }>
               <Text
                 style={{
-                  color: focused ? '#e32f45' : '#748c94',
+                  color: focused ? '#fff' : '#748c94',
                   fontSize: 14,
                   fontWeight: 'bold',
                 }}>
@@ -116,17 +100,26 @@ function SavedTabs() {
 
 function NotificationsTabs() {
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: styles.tabBarStyle,
+      }}>
       <Tab.Screen
         name="AllNotifications"
         component={AllNotifications}
         options={{
           title: '',
           tabBarIcon: ({focused}) => (
-            <View style={styles.tabScreen}>
+            <View
+              style={
+                focused
+                  ? styles.tabScreenWithoutImgFocused
+                  : styles.tabScreenWithoutImg
+              }>
               <Text
                 style={{
-                  color: focused ? '#e32f45' : '#748c94',
+                  color: focused ? '#fff' : '#748c94',
                   fontSize: 14,
                   fontWeight: 'bold',
                 }}>
@@ -142,10 +135,15 @@ function NotificationsTabs() {
         options={{
           title: '',
           tabBarIcon: ({focused}) => (
-            <View style={styles.tabScreen}>
+            <View
+              style={
+                focused
+                  ? styles.tabScreenWithoutImgFocused
+                  : styles.tabScreenWithoutImg
+              }>
               <Text
                 style={{
-                  color: focused ? '#e32f45' : '#748c94',
+                  color: focused ? '#fff' : '#748c94',
                   fontSize: 14,
                   fontWeight: 'bold',
                 }}>
@@ -161,10 +159,15 @@ function NotificationsTabs() {
         options={{
           title: '',
           tabBarIcon: ({focused}) => (
-            <View style={styles.tabScreen}>
+            <View
+              style={
+                focused
+                  ? styles.tabScreenWithoutImgFocused
+                  : styles.tabScreenWithoutImg
+              }>
               <Text
                 style={{
-                  color: focused ? '#e32f45' : '#748c94',
+                  color: focused ? '#fff' : '#748c94',
                   fontSize: 14,
                   fontWeight: 'bold',
                 }}>
@@ -212,7 +215,7 @@ export default function NavRouter() {
         />
         <Tab.Screen
           initialRouteName="Saved"
-          name="SavedStack"
+          name="SavedTabs"
           component={SavedTabs}
           options={{
             title: '',
@@ -238,7 +241,7 @@ export default function NavRouter() {
           }}
         />
         <Tab.Screen
-          name="Notifications"
+          name="NotificationsTabs"
           component={NotificationsTabs}
           options={{
             title: '',
@@ -300,8 +303,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     top: 10,
   },
+  tabScreenWithoutImgFocused: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: 6,
+    backgroundColor: '#E23E3E',
+    width: '100%',
+    height: 45,
+    borderRadius: 10,
+  },
+  tabScreenWithoutImg: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: 5,
+  },
   tabScreenImg: {
     width: 25,
     height: 25,
+  },
+  tabBarStyle: {
+    shadowColor: 'transparent',
   },
 });

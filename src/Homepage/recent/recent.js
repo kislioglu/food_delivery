@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
+
 import {
   View,
   Text,
@@ -71,7 +73,10 @@ export default function Recent() {
                 onPress={() => handleShowMealDetail(mealDetails)}
                 activeOpacity={0.9}
                 key={index}
-                style={styles.recentFoodView}>
+                style={[
+                  styles.recentFoodView,
+                  index < 1 ? {marginLeft: 20} : null,
+                ]}>
                 <Image
                   style={styles.mealImg}
                   source={{uri: mealDetails.strMealThumb}}
@@ -107,7 +112,7 @@ const styles = StyleSheet.create({
   recentFoodView: {
     width: 124,
     height: 191,
-    marginLeft: 20,
+    marginRight: 15,
   },
   mealImg: {
     width: 124,

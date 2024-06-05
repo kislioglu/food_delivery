@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import * as React from 'react';
 import {
@@ -8,7 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import {useDataContext} from '../../context/context';
+import {useDataContext} from '../context/context';
 import {useNavigation} from '@react-navigation/native';
 import YoutubeIframe from 'react-native-youtube-iframe';
 import {useState} from 'react';
@@ -86,7 +87,7 @@ export default function RecipeVideo() {
   return (
     <View style={styles.bgColor}>
       <View style={styles.labelView}>
-        <Text style={styles.headerLabel}>Saved Recipes</Text>
+        <Text style={styles.headerLabel}>Saved Recipes Video</Text>
       </View>
       {addedToBookmark.length < 1 ? (
         <View style={styles.noneBookmarked}>
@@ -168,12 +169,10 @@ const styles = StyleSheet.create({
   },
   labelView: {
     marginLeft: 10,
-    marginTop: 30,
-
     paddingHorizontal: 10,
     width: '90%',
+    height: 100,
     justifyContent: 'center',
-    marginBottom: 20,
   },
   headerLabel: {
     fontWeight: '700',
