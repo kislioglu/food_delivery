@@ -25,7 +25,6 @@ export default function DailySentences() {
 
 const styles = StyleSheet.create({
   randomSentences: {
-    marginTop: 10,
     marginLeft: 10,
     paddingHorizontal: 10,
     width: '90%',
