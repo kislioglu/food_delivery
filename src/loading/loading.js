@@ -14,7 +14,7 @@ export default function Loading() {
 const styles = StyleSheet.create({
   loading: {
     // width: '100%',
-    // height: '85%',
+    height: '85%',
     justifyContent: 'center',
     alignItems: 'center',
   },
