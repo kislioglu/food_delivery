@@ -7,7 +7,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {DataProvider} from './src/context/context';
-import {NavigationContainer} from '@react-navigation/native';
 import NavRouter from './src/navigator/navRouter';
 import {enableFreeze, enableScreens} from 'react-native-screens';
 enableFreeze(true);
